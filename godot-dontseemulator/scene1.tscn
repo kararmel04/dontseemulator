@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://cbrbtgqk4g1t5"]
+
+[ext_resource type="PackedScene" uid="uid://fqisiyvurfbe" path="res://player.tscn" id="1_rnpve"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_l7g0s"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_rnpve"]
+sky_material = SubResource("ProceduralSkyMaterial_l7g0s")
+
+[sub_resource type="Environment" id="Environment_p20re"]
+background_mode = 2
+sky = SubResource("Sky_rnpve")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_l7g0s"]
+size = Vector2(10, 10)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_rnpve"]
+points = PackedVector3Array(5.077377, 0.07933401, 5.077377, -5.077377, -0.07933401, -5.077377, -5.077377, 0.07933401, -5.077377, 5.077377, -0.07933401, -5.077377, -5.077377, -0.07933401, 5.077377, -5.077377, 0.07933401, 5.077377, 5.077377, 0.07933401, -5.077377, 5.077377, -0.07933401, 5.077377)
+
+[node name="Node3D" type="Node3D" unique_id=1233920032]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=381415481]
+environment = SubResource("Environment_p20re")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=716733913]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1713984380]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 1.6524174)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=11918120]
+mesh = SubResource("PlaneMesh_l7g0s")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D" unique_id=1301364910]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D" unique_id=1103671675]
+shape = SubResource("ConvexPolygonShape3D_rnpve")
+
+[node name="Player" parent="." unique_id=11350840 instance=ExtResource("1_rnpve")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.646318, 0)
