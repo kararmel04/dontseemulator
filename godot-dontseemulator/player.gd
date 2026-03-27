@@ -11,7 +11,9 @@ const COOLDOWN_VISION: float = 3.0
 const VISION_LENGTH: float = FLASH_LENGTH
 
 # Indice de luminosité quand le flash est activé
-const GAMMA: float = 4.0
+const GAMMA: float = 1.0
+# Mettre à GAMMA pour voir dans le noir (0.0 pour le jeu normal)
+const GAMMA_MIN: float = 0.0
 
 # Temps restant à attendre avant le prochain flash
 var cooldown_flash: float = 0.0
@@ -37,11 +39,11 @@ var pos_list: Array[Dictionary] = []
 
 
 # Permet d'activer la cam de son choix (true si on veut activer la globale, false si la locale)
-func activate_cam(global: String):
-		%GlobalTwistPivot/GlobalPitchPivot/GlobalCamera.current = (global == "global")
-		camera_node.current = !(global == "global")
+func activate_cam(cam: String):
+		%GlobalTwistPivot/GlobalPitchPivot/GlobalCamera.current = (cam == "global")
+		camera_node.current = !(cam == "global")
 		
-		$".".visible = !(global == "global")
+		visible = !(cam == "global")
 
 # Appelé lorsque le noeuf entre en scène
 func _ready() -> void:
@@ -118,15 +120,11 @@ func _process(delta: float) -> void:
 		if (pos.cooldown >= COOLDOWN_VISION - VISION_LENGTH):
 			has_vision = true
 			
-		
-		# Remet sombre si les 2 cooldowns sont terminés
-		if (cooldown_flash < COOLDOWN_FLASH - FLASH_LENGTH):
-			#%WorldEnvironment.environment.tonemap_exposure = 0.0
-			pass
 	
-	if (!has_vision):
+	# Si le joueur ne voit aucune vision, alors on remet sombre (sauf s'il est en train de flasher)
+	if (!has_vision && cooldown_flash < COOLDOWN_FLASH - FLASH_LENGTH):
 		activate_cam("local")
-		%WorldEnvironment.environment.tonemap_exposure = 0.0
+		%WorldEnvironment.environment.tonemap_exposure = GAMMA_MIN
 		
 	
 	# Décrémentation des cooldowns

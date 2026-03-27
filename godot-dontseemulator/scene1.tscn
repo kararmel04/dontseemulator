@@ -11,6 +11,8 @@ ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
 sky_material = SubResource("ProceduralSkyMaterial_l7g0s")
 
 [sub_resource type="Environment" id="Environment_p20re"]
+background_mode = 1
+background_color = Color(0.7097802, 0.8065498, 1, 1)
 sky = SubResource("Sky_rnpve")
 ssao_enabled = true
 ssil_enabled = true
@@ -29,6 +31,7 @@ unique_name_in_owner = true
 environment = SubResource("Environment_p20re")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=11918120]
+transform = Transform3D(25, 0, 0, 0, 25, 0, 0, 0, 25, 0, 0, 0)
 mesh = SubResource("PlaneMesh_l7g0s")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D" unique_id=1301364910]
