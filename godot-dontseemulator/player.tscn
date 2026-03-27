@@ -1,6 +1,10 @@
 [gd_scene format=3 uid="uid://fqisiyvurfbe"]
 
 [ext_resource type="Script" uid="uid://boqe1qb68q7lh" path="res://player.gd" id="1_4flbx"]
+[ext_resource type="Texture2D" uid="uid://rolsdfv512ew" path="res://icon.svg" id="2_onrkg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i3pqv"]
+albedo_texture = ExtResource("2_onrkg")
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_sh265"]
 
@@ -11,7 +15,15 @@ lock_rotation = true
 script = ExtResource("1_4flbx")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=874271755]
+material_override = SubResource("StandardMaterial3D_i3pqv")
 mesh = SubResource("CapsuleMesh_sh265")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=582539319]
 shape = SubResource("CapsuleShape3D_4flbx")
+
+[node name="LocalTwistPivot" type="Node3D" parent="." unique_id=1563958837]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+
+[node name="LocalPitchPivot" type="Node3D" parent="LocalTwistPivot" unique_id=1819003569]
+
+[node name="LocalCamera" type="Camera3D" parent="LocalTwistPivot/LocalPitchPivot" unique_id=963036937]
